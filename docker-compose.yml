@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  mongo:
+    image: mongo:3
+    ports:
+      - 27017:27017
+  orders:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      MONGO_URI: mongodb://mongo:27017
