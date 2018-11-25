@@ -14,7 +14,8 @@ def make_application():
         (r"/orders", OrderHandler)
     ]
     settings = {
-        "db": db
+        "db": db,
+        "debug": True
     }
 
     app = Application(handlers, **settings)
