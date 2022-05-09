@@ -12,4 +12,4 @@ services:
     environment:
       MONGO_URI: mongodb://mongo:27017
     volumes:
-      - ./:/usr/app
+      - .:/usr/app

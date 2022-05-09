@@ -1,0 +1,16 @@
+Example1:
+    locust -f example1.py
+
+Example2:
+    locust -f example2.py -H https://fakerestapi.azurewebsites.net
+
+Example3:
+    Desempenho
+        locust --no-web -c 100 -r 100 -t 5m -H http://localhost:8000 -f locustfile.py
+    Carga:
+        locust --no-web -c 500 -r 10 -t 5m -H http://localhost:8000 -f locustfile.py
+    Estresse:
+        locust --no-web -c 3000 -r 200 -t 10m -H http://localhost:8000 -f locustfile.py
+
+Extra:
+    MAX_TIME=250 locust -f example3.py

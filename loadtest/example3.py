@@ -5,6 +5,8 @@ from locust import HttpLocust, TaskSet, task
 
 
 MAX_TIME = int(os.environ.get("MAX_TIME", 2000))
+print(f"Response time should not be higher than {MAX_TIME} ms")
+
 
 class APITasks(TaskSet):
     def on_start(self):
@@ -19,19 +21,20 @@ class APITasks(TaskSet):
         elapsed = resp.elapsed.microseconds / 1000
         if resp.status_code == 200 and elapsed > MAX_TIME:
             resp.failure(
-                "Response time is bigger than expected."
+                "Response time is bigger than expected. "
                 f"Got: {resp.elapsed}, expected: {MAX_TIME}")
 
     @task(10)
     def allBooks(self):
-        with self.client.get("/api/books") as resp:
+        with self.client.get("/api/books", catch_response=True) as resp:
             self._check_response_time(resp)
 
     @task(5)
     def especificBook(self):
         seed = randint(1, 5)
         with self.client.get(
-                f"/api/books/{seed}", name="/api/books/ID") as resp:
+                f"/api/books/{seed}", name="/api/books/ID",
+                catch_response=True) as resp:
             self._check_response_time(resp)
 
 class APIUser(HttpLocust):
